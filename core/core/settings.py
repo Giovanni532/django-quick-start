@@ -25,8 +25,11 @@ SECRET_KEY = 'django-insecure-walfy1e8a(3#1+ndspm!#+%f3e+6ld(@k^rjycb9*=-os$kb$s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+AUTH_USER_MODEL = 'authentication.User'
+
+AUTHENTICATION_BACKENDS = ['authentication.backends.EmailBackend']
 
 # Application definition
 
@@ -37,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +55,15 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
 
 TEMPLATES = [
     {
